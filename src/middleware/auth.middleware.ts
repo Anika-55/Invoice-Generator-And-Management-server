@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "../utils/app-error.js";
-import { verifyToken } from "../utils/jwt.js";
+import { verifyAccessToken } from "../utils/jwt.js";
 
 export const requireAuth = (req: Request, _res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
@@ -11,7 +11,7 @@ export const requireAuth = (req: Request, _res: Response, next: NextFunction) =>
   const token = authHeader.split(" ")[1];
 
   try {
-    const payload = verifyToken(token);
+    const payload = verifyAccessToken(token);
     req.user = { id: payload.userId };
     return next();
   } catch {
