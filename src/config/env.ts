@@ -12,7 +12,10 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string().min(32),
   JWT_REFRESH_EXPIRES_IN: z.string().default("30d"),
   RESET_TOKEN_EXPIRES_MINUTES: z.coerce.number().int().positive().default(30),
-  CORS_ORIGIN: z.string().default("*")
+  CORS_ORIGIN: z.string().default("*"),
+  RESEND_API_KEY: z.string().min(1),
+  EMAIL_FROM: z.string().email(),
+  PAYMENT_LINK_BASE: z.string().url()
 });
 
 const parsed = envSchema.safeParse(process.env);
